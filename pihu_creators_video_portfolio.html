@@ -1,0 +1,641 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Video Editing &amp; AI Creatives | Pihu Creators</title>
+<style>
+:root {
+  --bg: #07101e;
+  --panel: #10243b;
+  --text: #f4f8ff;
+  --muted: #a9bbd1;
+  --cyan: #00d9ff;
+  --blue: #1677ff;
+  --line: rgba(150,190,230,.18);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at 10% 0%, #102c4d 0, transparent 34%), var(--bg);
+  color: var(--text);
+  font-family: Inter, Arial, sans-serif;
+}
+
+main {
+  max-width: 1240px;
+  margin: auto;
+  padding: 48px 22px 70px;
+}
+
+.hero { text-align: center; margin-bottom: 30px; }
+
+.eyebrow {
+  display: inline-block;
+  border: 1px solid rgba(0,217,255,.35);
+  border-radius: 99px;
+  padding: 8px 14px;
+  color: var(--cyan);
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(30px,5vw,54px);
+  line-height: 1.08;
+  margin: 18px 0 12px;
+  letter-spacing: -1.5px;
+}
+
+h1 span {
+  background: linear-gradient(90deg,#fff,var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.note {
+  max-width: 850px;
+  margin: 24px auto 0;
+  padding: 13px 16px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: rgba(13,26,45,.7);
+  color: #c8d8e9;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.toolbar {
+  position: sticky;
+  top: 8px;
+  z-index: 5;
+  margin: 30px 0 24px;
+  padding: 12px;
+  background: rgba(7,16,30,.94);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.filter {
+  border: 1px solid var(--line);
+  background: #0b192a;
+  color: #d7e5f5;
+  border-radius: 99px;
+  padding: 10px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.filter:hover,
+.filter.active {
+  background: linear-gradient(120deg,#0878d7,#00b8dc);
+  border-color: transparent;
+  color: white;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  margin: 26px 0 16px;
+}
+
+.section-title h2 { margin: 0; font-size: 22px; }
+.section-title p { margin: 0; color: var(--muted); font-size: 13px; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 18px;
+}
+
+.card {
+  min-width: 0;
+  overflow: hidden;
+  background: linear-gradient(145deg,rgba(16,36,59,.96),rgba(9,22,39,.98));
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.15);
+  transition: transform .2s,border-color .2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0,217,255,.5);
+}
+
+.media {
+  position: relative;
+  background: #020812;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #020812;
+}
+
+.type {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  border-radius: 99px;
+  background: rgba(0,0,0,.72);
+  border: 1px solid rgba(255,255,255,.16);
+  padding: 6px 9px;
+  font-size: 10px;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  text-align: center;
+  background: radial-gradient(circle at 50% 40%,#173d5e,#06101e 68%);
+  color: #d4e6f7;
+}
+
+.placeholder[hidden] { display: none !important; }
+
+.placeholder .play {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(0,217,255,.6);
+  border-radius: 50%;
+  color: var(--cyan);
+  font-size: 21px;
+  background: rgba(0,217,255,.08);
+}
+
+.placeholder strong { font-size: 14px; }
+
+.placeholder small {
+  font-size: 11px;
+  color: #9cb4ce;
+  max-width: 260px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.card-body { padding: 15px 16px 17px; }
+.card h3 { font-size: 17px; margin: 0 0 7px; }
+
+.card p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.tag {
+  font-size: 10px;
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  color: #b7d9ed;
+}
+
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 9px;
+  background: #040a13;
+}
+
+.compare-item {
+  min-width: 0;
+  position: relative;
+  aspect-ratio: 9 / 14;
+  background: #050b14;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.compare-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #020812;
+}
+
+.compare-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 5px 7px;
+  background: rgba(0,0,0,.8);
+  font-size: 10px;
+  border-radius: 5px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.empty {
+  display: none;
+  padding: 28px;
+  text-align: center;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  border-radius: 16px;
+}
+
+.footer-cta {
+  margin-top: 36px;
+  padding: 25px;
+  border: 1px solid rgba(0,217,255,.25);
+  border-radius: 20px;
+  background: linear-gradient(120deg,rgba(12,55,89,.72),rgba(7,16,30,.92));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-cta h2 { margin: 0 0 7px; font-size: 22px; }
+
+.footer-cta p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.cta {
+  display: inline-block;
+  text-decoration: none;
+  background: linear-gradient(110deg,#0878ff,#00cde8);
+  color: #fff;
+  padding: 12px 17px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media(max-width:640px) {
+  main { padding: 30px 12px 45px; }
+  .grid { gap: 10px; }
+  .card { border-radius: 12px; }
+  .card-body { padding: 11px; }
+  .card h3 { font-size: 14px; }
+  .card p { font-size: 11px; }
+  .tags { gap: 4px; }
+  .tag { font-size: 9px; padding: 4px 6px; }
+  .toolbar { top: 4px; padding: 8px; gap: 6px; }
+  .filter { padding: 8px 10px; font-size: 11px; }
+  .section-title { align-items: start; flex-direction: column; }
+  .footer-cta { align-items: flex-start; flex-direction: column; }
+  .cta { white-space: normal; }
+  .placeholder strong { font-size: 12px; }
+  .placeholder small { font-size: 10px; }
+  .placeholder .play { width: 40px; height: 40px; }
+}
+</style>
+<style>
+.pc-global-nav{position:sticky;top:0;z-index:1000;display:flex;justify-content:center;align-items:center;gap:clamp(10px,2vw,26px);flex-wrap:wrap;padding:14px 18px;background:rgba(5,13,26,.94);border-bottom:1px solid rgba(0,217,255,.2);backdrop-filter:blur(14px)}
+.pc-global-nav a{color:#eaf5ff;text-decoration:none;font:600 13px/1.3 Inter,Arial,sans-serif}
+.pc-global-nav a:hover{color:#00d9ff}
+</style></head>
+<body><nav aria-label="Main navigation" class="pc-global-nav"><a href="index.html">Pihu Creators</a><a href="pihu_creators_graphic_portfolio.html">Graphic Portfolio</a><a href="pihu_creators_video_portfolio.html">Video Portfolio</a><a href="web design.html">Website Portfolio</a><a href="portflio.html">All Projects</a><a href="contact.html">Contact</a></nav>
+<main>
+<header class="hero">
+<span class="eyebrow">Pihu Creators · Video Portfolio</span>
+<h1>Videos That Make Your Brand <span>Stand Out</span></h1>
+<p>Explore video editing, before-and-after transformations, reels, AI creatives, ad videos, product showcases, UGC-style content and motion graphics — all in one portfolio.</p>
+<!-- <div class="note">
+      <strong>Portfolio tip:</strong> Add your actual MP4 paths in the projects list below.
+      Set <code>show: false</code> to hide a project. Move project objects up or down to change their order.
+    </div> -->
+</header>
+<nav aria-label="Portfolio categories" class="toolbar">
+<button class="filter active" data-filter="all" type="button">All Work</button>
+<button class="filter" data-filter="editing" type="button">Video Editing</button>
+<button class="filter" data-filter="before-after" type="button">Before &amp; After</button>
+<button class="filter" data-filter="reels" type="button">Reels &amp; Shorts</button>
+<button class="filter" data-filter="ai" type="button">AI Creatives</button>
+<button class="filter" data-filter="ads" type="button">Video Ads</button>
+<button class="filter" data-filter="product" type="button">Product Shoots</button>
+<button class="filter" data-filter="ugc" type="button">UGC Style</button>
+<button class="filter" data-filter="motion" type="button">Motion Graphics</button>
+</nav>
+<div class="section-title">
+<h2>Selected Video Work</h2>
+<p id="count">0 projects</p>
+</div>
+<section aria-label="Video portfolio" class="grid" id="portfolioGrid"></section>
+<div class="empty" id="emptyState">No projects in this category yet.</div>
+<section class="footer-cta">
+<div>
+<h2>Need a video for your brand?</h2>
+<p>Reels, product videos, AI creatives, promotional ads and editing services by Pihu Creators.</p>
+</div>
+<a class="cta" href="https://wa.me/919310688455?text=Hi%20Pihu%20Creators%2C%20I%20need%20video%20editing%20or%20creative%20services." rel="noopener" target="_blank">Discuss Your Project ↗</a>
+</section>
+</main>
+<script>
+/*
+====================================================
+HOW TO MANAGE YOUR VIDEOS
+====================================================
+
+video:  Path to the MP4 file.
+show:   true = display this project.
+        false = hide this project.
+category: editing, before-after, reels, ai, ads,
+          product, ugc, or motion.
+
+Use unique paths for different videos.
+The same file will appear wherever you use its path.
+====================================================
+*/
+
+const projects = [
+
+  // 01. VIDEO EDITING
+  {
+    title: "Video Editing Sample 01",
+    category: "editing",
+    label: "VIDEO EDITING",
+    desc: "Polished cuts, pacing, captions, sound design and colour finishing.",
+    tags: ["Editing", "Captions", "Sound Design"],
+    video: "images second folder/vedio 1.mp4",
+    show: true
+  },
+
+  // 02. BEFORE & AFTER
+  {
+    title: "Before & After Sample 01",
+    category: "before-after",
+    label: "BEFORE / AFTER",
+    desc: "Compare the original footage with the final edited result.",
+    tags: ["Raw Footage", "Final Edit"],
+    before: "images second folder/vedio 4.mp4",
+    after: "images second folder/vedio 2.mp4",
+    show: true
+  },
+
+  // 03. REELS & SHORTS
+  {
+    title: "Reel / Short 01",
+    category: "reels",
+    label: "REELS & SHORTS",
+    desc: "Vertical content for Instagram Reels and YouTube Shorts.",
+    tags: ["9:16", "Hook", "Subtitles"],
+    video: "images second folder/vedio 3.mp4",
+    show: true
+  },
+
+  {
+    title: "Reel / Short 02",
+    category: "reels",
+    label: "REELS & SHORTS",
+    desc: "Short-form social media editing.",
+    tags: ["Reels", "Social Media"],
+    video: "images second folder/kvs vedio blood test.mp4",
+    show: true
+  },
+
+  // // 04. AI CREATIVES
+  {
+    title: "AI Creative & Product Showcase 01",
+    category: "ai",
+    label: "AI CREATIVE",
+    desc: "AI-assisted visuals and creative storytelling.",
+    tags: ["AI Visuals", "Creative"],
+    video: "images second folder/product showcase of ai.mp4",
+    show: true
+  },
+
+  {
+    title: "AI Creative & Product Showcase  02",
+    category: "ai",
+    label: "AI CREATIVE",
+    desc: "AI-generated scenes and image-to-video concepts.",
+    tags: ["AI", "Visual Effects"],
+       video: "images second folder/product showcase of watch.mp4",
+    show: true
+  },
+
+  // 05. VIDEO ADS
+  {
+    title: "Promotional Ad 01",
+    category: "ads",
+    label: "VIDEO AD",
+    desc: "Promotional video for a product, service or campaign.",
+    tags: ["Promotion", "CTA"],
+    video: "images second folder/vedio ad.mp4",
+    show: true
+  },
+
+  {
+    title: "Promotional Ad 02",
+    category: "ads",
+    label: "VIDEO AD",
+    desc: "Advertising creative for social media.",
+    tags: ["Advertising", "Branding"],
+    video: "images second folder/promotinal ad.mp4",
+    show: true
+  },
+
+  // 06. PRODUCT VIDEOS
+  // {
+  //   title: "Product Showcase 01",
+  //   category: "product",
+  //   label: "PRODUCT SHOWCASE",
+  //   desc: "Product-focused visuals and showcase editing.",
+  //   tags: ["Product", "Showcase"],
+  //   video: "videos/product/product-01.mp4",
+  //   show: true
+  // },
+
+  // {
+  //   title: "Product Showcase 02",
+  //   category: "product",
+  //   label: "PRODUCT SHOWCASE",
+  //   desc: "Product details, close-ups and promotional editing.",
+  //   tags: ["Product", "Close-ups"],
+  //   video: "videos/product/product-02.mp4",
+  //   show: true
+  // },
+
+  // 07. UGC STYLE
+  {
+    title: "UGC Style Video 01",
+    category: "ugc",
+    label: "UGC STYLE",
+    desc: "Creator-style content for brands and social media.",
+    tags: ["Creator Style", "Storytelling"],
+    video: "images second folder/ugc vedio.mp4",
+    show: true
+  },
+
+  // 08. MOTION GRAPHICS
+  {
+    title: "Motion Graphics 01",
+    category: "motion",
+    label: "MOTION GRAPHICS",
+    desc: "Animated text, logo reveals, transitions and effects.",
+    tags: ["Animation", "Typography"],
+    video: "images second folder/motion graphic logo.mp4",
+    show: true
+  },
+
+   {
+    title: "Motion Graphics — Animated Design",
+    category: "motion",
+    label: "MOTION GRAPHICS",
+    desc: "Animated text, logo reveals, transitions and effects.",
+    tags: ["Animation", "Typography"],
+    video: "images second folder/motion graphic.mp4",
+    show: true
+  }
+
+];
+
+const grid = document.getElementById("portfolioGrid");
+const count = document.getElementById("count");
+const empty = document.getElementById("emptyState");
+
+function videoMarkup(src, title) {
+  return `
+    <video controls preload="metadata" playsinline aria-label="${title}">
+      <source src="${src}" type="video/mp4">
+      Your browser does not support this video.
+    </video>
+    <div class="placeholder" hidden>
+      <div class="play">▶</div>
+      <strong>${title}</strong>
+      <small>Check that this video file exists:<br>${src}</small>
+    </div>
+  `;
+}
+
+function standardCard(project) {
+  return `
+    <article class="card" data-category="${project.category}">
+      <div class="media">
+        <span class="type">${project.label}</span>
+        ${videoMarkup(project.video, project.title)}
+      </div>
+      <div class="card-body">
+        <h3>${project.title}</h3>
+        <p>${project.desc}</p>
+        <div class="tags">
+          ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function compareCard(project) {
+  return `
+    <article class="card" data-category="${project.category}">
+      <div class="compare">
+        <div class="compare-item">
+          <span class="compare-label">BEFORE</span>
+          ${videoMarkup(project.before, project.title + " before")}
+        </div>
+        <div class="compare-item">
+          <span class="compare-label">AFTER</span>
+          ${videoMarkup(project.after, project.title + " after")}
+        </div>
+      </div>
+      <div class="card-body">
+        <h3>${project.title}</h3>
+        <p>${project.desc}</p>
+        <div class="tags">
+          ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function renderProjects(filter = "all") {
+  const visibleProjects = projects.filter(project => {
+    return project.show !== false &&
+      (filter === "all" || project.category === filter);
+  });
+
+  grid.innerHTML = visibleProjects.map(project => {
+    return project.category === "before-after"
+      ? compareCard(project)
+      : standardCard(project);
+  }).join("");
+
+  count.textContent =
+    `${visibleProjects.length} project${visibleProjects.length === 1 ? "" : "s"}`;
+
+  empty.style.display = visibleProjects.length ? "none" : "block";
+
+  // Show the placeholder until the relevant video loads.
+  grid.querySelectorAll("video").forEach(video => {
+    const placeholder = video.nextElementSibling;
+
+    video.addEventListener("loadeddata", () => {
+      placeholder.hidden = true;
+    });
+
+    video.addEventListener("error", () => {
+      placeholder.hidden = false;
+    });
+  });
+}
+
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach(item => {
+      item.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    renderProjects(button.dataset.filter);
+  });
+});
+
+renderProjects("all");
+</script>
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Graphic Design Portfolio | Pihu Creators</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+/* Pihu Creators — standalone graphic portfolio section */
+.graphic-portfolio {
+  --gp-bg: #080e1b;
+  --gp-card: #111c2e;
+  --gp-cyan: #00dfff;
+  --gp-blue: #087cff;
+  background: var(--gp-bg);
+  color: #f4f7ff;
+  padding: 60px 5%;
+  font-family: "DM Sans", Arial, sans-serif;
+}
+.graphic-portfolio * { box-sizing: border-box; }
+.gp-container { max-width: 1250px; margin: 0 auto; }
+.gp-heading { text-align: center; max-width: 760px; margin: 0 auto 32px; }
+.gp-tag { display: inline-block; color: var(--gp-cyan); font-size: 12px; font-weight: 700; letter-spacing: 2px; margin-bottom: 14px; }
+.gp-heading h1 { font-family: "Space Grotesk", sans-serif; font-size: clamp(30px, 5vw, 52px); line-height: 1.13; letter-spacing: -1.4px; margin: 0 0 15px; }
+.gp-heading h1 span { background: linear-gradient(90deg, #00dfff, #508bff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.gp-heading p { color: #a8b6ca; font-size: 15px; line-height: 1.8; margin: 0; }
+.gp-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; margin: 28px 0 34px; }
+.gp-filter { padding: 10px 16px; border: 1px solid #ffffff20; border-radius: 30px; color: #cbd5e5; background: #101a2a; cursor: pointer; font: inherit; font-size: 13px; transition: .2s; }
+.gp-filter:hover, .gp-filter.active { color: #fff; background: linear-gradient(100deg, #087cff, #00bfe9); border-color: transparent; }
+.gp-count { text-align: center; color: #9baec7; font-size: 12px; margin: -18px 0 24px; }
+/* Exactly two columns on desktop and mobile */
+.gp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.gp-card { min-width: 0; overflow: hidden; border: 1px solid #ffffff12; border-radius: 14px; background: var(--gp-card); transition: transform .25s, border-color .25s; }
+.gp-card:hover { transform: translateY(-4px); border-color: #00dfff70; }
+.gp-image { width: 100%; aspect-ratio: 4 / 3; background: #17243a; overflow: hidden; cursor: zoom-in; }
+.gp-image img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.gp-image img.gp-cover { object-fit: cover; }
+.gp-info { padding: 13px 15px 15px; }
+.gp-info .gp-category-label { color: var(--gp-cyan); font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
+.gp-info h2 { font-family: "Space Grotesk", sans-serif; font-size: clamp(14px, 2vw, 19px); line-height: 1.35; margin: 5px 0 0; overflow-wrap: anywhere; }
+.gp-empty { display: none; text-align: center; color: #a8b6ca; padding: 35px 10px; }
+.gp-note { max-width: 800px; margin: 28px auto 0; color: #a8b6ca; font-size: 12px; line-height: 1.7; text-align: center; }
+.gp-lightbox { position: fixed; inset: 0; z-index: 99999; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(0,0,0,.94); }
+.gp-lightbox.open { display: flex; }
+.gp-lightbox img { max-width: 94vw; max-height: 84vh; object-fit: contain; }
+.gp-lightbox-caption { position: absolute; bottom: 18px; left: 15px; right: 15px; color: #fff; text-align: center; font-size: 14px; }
+.gp-close { position: absolute; top: 12px; right: 20px; border: 0; color: #fff; background: transparent; font-size: 40px; cursor: pointer; }
+@media (max-width: 600px) {
+  .graphic-portfolio { padding: 42px 4%; }
+  .gp-grid { gap: 12px; }
+  .gp-info { padding: 10px; }
+  .gp-info .gp-category-label { font-size: 9px; letter-spacing: .6px; }
+  .gp-filter { padding: 9px 11px; font-size: 12px; }
+}
+</style>
+<style>
+.pc-global-nav{position:sticky;top:0;z-index:1000;display:flex;justify-content:center;align-items:center;gap:clamp(10px,2vw,26px);flex-wrap:wrap;padding:14px 18px;background:rgba(5,13,26,.94);border-bottom:1px solid rgba(0,217,255,.2);backdrop-filter:blur(14px)}
+.pc-global-nav a{color:#eaf5ff;text-decoration:none;font:600 13px/1.3 Inter,Arial,sans-serif}
+.pc-global-nav a:hover{color:#00d9ff}
+</style></head>
+<body style="margin:0;background:#080e1b;"><nav aria-label="Main navigation" class="pc-global-nav"><a href="index.html">Pihu Creators</a><a href="pihu_creators_graphic_portfolio.html">Graphic Portfolio</a><a href="pihu_creators_video_portfolio.html">Video Portfolio</a><a href="web design.html">Website Portfolio</a><a href="portflio.html">All Projects</a><a href="contact.html">Contact</a></nav>
+<section class="graphic-portfolio" id="graphicPortfolio">
+<div class="gp-container">
+<header class="gp-heading">
+<span class="gp-tag">PIHU CREATORS · OUR WORK</span>
+<h1>Creative Designs, <span>Powerful Branding.</span></h1>
+<p>Explore our logo designs, brand identities, carousels, advertisements, social media creatives and print designs.</p>
+</header>
+<nav aria-label="Filter portfolio designs" class="gp-filters">
+<button class="gp-filter active" data-category="all" type="button">All Designs</button>
+<button class="gp-filter" data-category="logo" type="button">Logo Design</button>
+<button class="gp-filter" data-category="branding" type="button">Branding</button>
+<button class="gp-filter" data-category="carousel" type="button">Carousels</button>
+<button class="gp-filter" data-category="ads" type="button">Ads &amp; Posters</button>
+<button class="gp-filter" data-category="social" type="button">Social Media</button>
+<button class="gp-filter" data-category="print" type="button">Print Design</button>
+<button class="gp-filter" data-category="linkedin-banner" type="button">LinkedIn Banner</button>
+<button class="gp-filter" data-category="youtube-thumbnail" type="button">YouTube Thumbnail</button>
+<button class="gp-filter" data-category="brochure" type="button">Brochures</button>
+<button class="gp-filter" data-category="flyer" type="button">Flyer</button>
+</nav>
+<p aria-live="polite" class="gp-count" id="gpCount">Showing 60 designs</p>
+<!-- <img src="images second folder/branding.png"> -->
+<div class="gp-grid" id="gpGrid"></div>
+<div class="gp-empty" id="gpEmpty">No designs in this category yet.</div>
+<p class="gp-note">To add your own work, place your images in the matching folders and update the image paths in the JavaScript list. These are sample filenames; add your actual design files for them to appear.</p>
+</div>
+</section>
+<div aria-label="Design preview" aria-modal="true" class="gp-lightbox" id="gpLightbox" role="dialog">
+<button aria-label="Close preview" class="gp-close" id="gpClose" type="button">×</button>
+<img alt="" id="gpPreviewImage"/>
+<div class="gp-lightbox-caption" id="gpPreviewCaption"></div>
+</div>
+<!-- 
+<img src="images second folder/branding.png"> -->
+<script>
+/*
+IMAGE FOLDER STRUCTURE:
+images/logos/logo-01.jpg through logo-10.jpg
+images/branding/brand-01.jpg through brand-10.jpg
+images/carousels/carousel-01.jpg through carousel-10.jpg
+images/ads/ad-01.jpg through ad-10.jpg
+images/social/social-01.jpg through social-10.jpg
+images/print/print-01.jpg through print-10.jpg
+
+Change each title and path to match your real sample files.
+*/
+function readableSampleTitle(path, fallback) {
+  const file = path.split('/').pop().replace(/\.[^.]+$/, '');
+  return file.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim()
+    .replace(/\b\w/g, c => c.toUpperCase()) || fallback;
+}
+
+const graphicSamples = [
+
+  // LOGO DESIGNS
+  ...[
+    "images second folder/brew and bean logo.png",
+    "images second folder/AUTYDIDI LOGO.jpg",
+    "images second folder/tripal udyog logo.png",
+    "images second folder/pantherlogistics logo.png",
+    "images second folder/agg bro logo.png",
+    "images second folder/NOVACORE 3D company logo.png",
+    "images second folder/kvs updated logo in portrait.jpeg",
+    "images second folder/panther digital logo.png",
+    "images second folder/velora logo.png",
+    "images second folder/prime build logo.png",
+  ].map((img, i) => ({
+    title: `Logo Design ${String(i + 1).padStart(2, "0")}`,
+    category: "logo",
+    label: "Logo Design",
+    image: img
+  })),
+
+  // BRANDING DESIGNS
+  ...[
+    "images branding/agg bro branding .png",
+    "images branding/kvs branding  .png",
+    "images branding/pihu creators brandign.png",
+    "images branding/panther digital branding.png",
+    "images branding/panther logistics branding .png",
+    "images branding/AK POWER Brand Identity Showcase.png",
+  ].map((img, i) => ({
+    title: `Branding Design ${String(i + 1).padStart(2, "0")}`,
+    category: "branding",
+    label: "Branding",
+    image: img
+  })),
+
+  // CAROUSEL DESIGNS
+  ...[
+    "images carousal/carousal panther logisctics.png",
+    "images carousal/kvs caoursal.png",
+    "images carousal/Panther_Digital_Solutions_Carousel_Preview.png",
+    "images carousal/panther logsitics caorousals.png",
+  ].map((img, i) => ({
+    title: `Carousel Design ${String(i + 1).padStart(2, "0")}`,
+    category: "carousel",
+    label: "Carousel",
+    image: img
+  })),
+
+  // ADS & POSTERS
+  ...[
+    "images printing/wire adver.png",
+    "images printing/happy selling lapto adver.png",
+    "images printing/adver panther.png",
+    "images printing/heater advertisement.png",
+    // "images/ads/ad-05.jpg",
+    // "images/ads/ad-06.jpg",
+    // "images/ads/ad-07.jpg",
+    // "images/ads/ad-08.jpg",
+    // "images/ads/ad-09.jpg",
+    // "images/ads/ad-10.jpg"
+  ].map((img, i) => ({
+    title: `Advertisement / Poster ${String(i + 1).padStart(2, "0")}`,
+    category: "ads",
+    label: "Ads & Posters",
+    image: img
+  })),
+
+  // SOCIAL MEDIA DESIGNS
+  ...[
+    "images smm/Powering Businesses with Logistics Solutions.png",
+    "images smm/Panther Logistics_ Precision Freight Nationwide.png",
+    "images smm/logo post 8.png",
+    "images smm/erp stop switching 12.png",
+    "images smm/erp 11, 5 problem solving.png",
+    "images smm/logo post 4.png",
+    "images smm/one dash panther.png",
+    "images smm/panther digital 2.png",
+    "images smm/erp stop switching 12.png",
+    "images smm/Panther Logistics_ Precision Freight Poster.png"
+  ].map((img, i) => ({
+    title: `Social Media Design ${String(i + 1).padStart(2, "0")}`,
+    category: "social",
+    label: "Social Media",
+    image: img
+  })),
+
+  // PRINT DESIGNS
+  ...[
+    "images printing/menu card brew and bean.png",
+    "images printing/menu card velora .png",
+    "images printing/menu coffee time.png",
+    "images printing/print trauplin.png",
+    "images printing/print agg bro.jpeg",
+    "images printing/upnexz print.png",
+    // "images/print/print-07.jpg",
+    // "images/print/print-08.jpg",
+    // "images/print/print-09.jpg",
+    // "images/print/print-10.jpg"
+  ].map((img, i) => ({
+    title: `Print Design ${String(i + 1).padStart(2, "0")}`,
+    category: "print",
+    label: "Print Design",
+    image: img
+  })),
+
+  // YOUTUBE THUMBNAIL DESIGNS
+  ...[
+     "images printing/youtube thumbnail semicon.png",
+    "images printing/india youtube thumbnail.png",
+    "images printing/youtube thumbnail.png",
+    "images printing/thumbnail ai tech.png",
+    "images printing/india youtube thumbnail.png",
+    "images printing/nse thumbnails.png",
+    // "images/youtube-thumbnail/youtube-thumbnail-06.jpg",
+    // "images/youtube-thumbnail/youtube-thumbnail-07.jpg",
+    // "images/youtube-thumbnail/youtube-thumbnail-08.jpg",
+    // "images/youtube-thumbnail/youtube-thumbnail-09.jpg",
+    // "images/youtube-thumbnail/youtube-thumbnail-10.jpg"
+  ].map((img, i) => ({
+    title: `YouTube Thumbnail ${String(i + 1).padStart(2, "0")}`,
+    category: "youtube-thumbnail",
+    label: "YouTube Thumbnail",
+    image: img
+  })),
+
+  // LINKEDIN BANNER DESIGNS
+  ...[
+    "images printing/linkedin banner.png",
+    "images printing/codenest linkedin banner.jpeg",
+    "images printing/linkedin banner of panther logistic.png",
+    "images printing/panther digital linkedin.png",
+    // "images/linkedin-banner/linkedin-banner-05.jpg",
+    // "images/linkedin-banner/linkedin-banner-06.jpg",
+    // "images/linkedin-banner/linkedin-banner-07.jpg",
+    // "images/linkedin-banner/linkedin-banner-08.jpg",
+    // "images/linkedin-banner/linkedin-banner-09.jpg",
+    // "images/linkedin-banner/linkedin-banner-10.jpg"
+  ].map((img, i) => ({
+    title: `LinkedIn Banner ${String(i + 1).padStart(2, "0")}`,
+    category: "linkedin-banner",
+    label: "LinkedIn Banner",
+    image: img
+  })),
+
+  // VISITING CARD DESIGNS
+  ...[
+    "images printing/panther logistics back visiting card.png",
+    "images printing/panther logistics visiting card.png",
+    "images printing/visiting card pihu creators.png",
+    "images printing/bharat electricals visiting card.png",
+    // "images/visiting-card/visiting-card-05.jpg",
+    // "images/visiting-card/visiting-card-06.jpg",
+    // "images/visiting-card/visiting-card-07.jpg",
+    // "images/visiting-card/visiting-card-08.jpg",
+    // "images/visiting-card/visiting-card-09.jpg",
+    // "images/visiting-card/visiting-card-10.jpg"
+  ].map((img, i) => ({
+    title: `Visiting Card ${String(i + 1).padStart(2, "0")}`,
+    category: "visiting-card",
+    label: "Visiting Card",
+    image: img
+  })),
+
+  // BROCHURE DESIGNS
+  ...[
+    "images printing/brouchure pihu.png",
+    "images printing/german brouhure.png",
+    "images printing/parlour brouhure.png",
+    "images printing/panther logistics brouhure.png",
+    // "images/brochure/brochure-05.jpg",
+    // "images/brochure/brochure-06.jpg",
+    // "images/brochure/brochure-07.jpg",
+    // "images/brochure/brochure-08.jpg",
+    // "images/brochure/brochure-09.jpg",
+    // "images/brochure/brochure-10.jpg"
+  ].map((img, i) => ({
+    title: `Brochure Design ${String(i + 1).padStart(2, "0")}`,
+    category: "brochure",
+    label: "Brochure",
+    image: img
+  })),
+
+  // FLYER & POSTER DESIGNS
+  ...[
+    "images printing/flate  flyer.png",
+    "images printing/pihu flyer.png",
+    // "images/flyer/flyer-03.jpg",
+    // "images/flyer/flyer-04.jpg",
+    // "images/flyer/flyer-05.jpg",
+    // "images/flyer/flyer-06.jpg",
+    // "images/flyer/flyer-07.jpg",
+    // "images/flyer/flyer-08.jpg",
+    // "images/flyer/flyer-09.jpg",
+    // "images/flyer/flyer-10.jpg"
+  ].map((img, i) => ({
+    title: `Flyer Design ${String(i + 1).padStart(2, "0")}`,
+    category: "flyer",
+    label: "Flyer & Poster",
+    image: img
+  })),
+
+  // LETTERHEAD DESIGNS
+  ...[
+    // "images/letterhead/letterhead-01.jpg",
+    // "images/letterhead/letterhead-02.jpg",
+    // "images/letterhead/letterhead-03.jpg",
+    // "images/letterhead/letterhead-04.jpg",
+    // "images/letterhead/letterhead-05.jpg",
+    // "images/letterhead/letterhead-06.jpg",
+    // "images/letterhead/letterhead-07.jpg",
+    // "images/letterhead/letterhead-08.jpg",
+    // "images/letterhead/letterhead-09.jpg",
+    // "images/letterhead/letterhead-10.jpg"
+  ].map((img, i) => ({
+    title: `Letterhead Design ${String(i + 1).padStart(2, "0")}`,
+    category: "letterhead",
+    label: "Letterhead",
+    image: img
+  })),
+
+  // PACKAGING DESIGNS
+  ...[
+    // "images/packaging/packaging-01.jpg",
+    // "images/packaging/packaging-02.jpg",
+    // "images/packaging/packaging-03.jpg",
+    // "images/packaging/packaging-04.jpg",
+    // "images/packaging/packaging-05.jpg",
+    // "images/packaging/packaging-06.jpg",
+    // "images/packaging/packaging-07.jpg",
+    // "images/packaging/packaging-08.jpg",
+    // "images/packaging/packaging-09.jpg",
+    // "images/packaging/packaging-10.jpg"
+  ].map((img, i) => ({
+    title: `Packaging Design ${String(i + 1).padStart(2, "0")}`,
+    category: "packaging",
+    label: "Packaging",
+    image: img
+  })),
+
+  // BANNER DESIGNS
+  ...[
+    // "images printing/youtube thumbnail semicon.png",
+    // "images printing/india youtube thumbnail.png",
+    // "images printing/youtube thumbnail.png",
+    // "images printing/thumbnail ai tech.png",
+    // "images printing/india youtube thumbnail.png",
+    // "images printing/nse thumbnails.png",
+    // "images/banner/banner-07.jpg",
+    // "images/banner/banner-08.jpg",
+    // "images/banner/banner-09.jpg",
+    // "images/banner/banner-10.jpg"
+  ].map((img, i) => ({
+    title: `Banner Design ${String(i + 1).padStart(2, "0")}`,
+    category: "banner",
+    label: "Banner Design",
+    image: img
+  }))
+
+];
+const gpGrid = document.getElementById("gpGrid");
+const gpEmpty = document.getElementById("gpEmpty");
+const gpCount = document.getElementById("gpCount");
+const gpButtons = document.querySelectorAll(".gp-filter");
+const gpLightbox = document.getElementById("gpLightbox");
+const gpPreviewImage = document.getElementById("gpPreviewImage");
+const gpPreviewCaption = document.getElementById("gpPreviewCaption");
+
+function showGraphicSamples(category = "all") {
+  const filtered = graphicSamples.filter(item => category === "all" || item.category === category);
+  gpGrid.replaceChildren();
+  gpEmpty.style.display = filtered.length ? "none" : "block";
+  gpCount.textContent = `Showing ${filtered.length} design${filtered.length === 1 ? "" : "s"}`;
+
+  filtered.forEach(item => {
+    const card = document.createElement("article");
+    card.className = "gp-card";
+
+    const imageBox = document.createElement("div");
+    imageBox.className = "gp-image";
+
+    const img = document.createElement("img");
+    img.src = item.image;
+    img.alt = item.title;
+    img.loading = "lazy";
+    img.onerror = () => {
+      img.alt = `${item.title} — add image file: ${item.image}`;
+      img.style.display = "none";
+      imageBox.style.cursor = "default";
+      imageBox.style.background = "linear-gradient(135deg,#17243a,#0c1525)";
+      imageBox.dataset.missing = "true";
+      imageBox.title = `Add image file: ${item.image}`;
+    };
+    imageBox.appendChild(img);
+
+    imageBox.addEventListener("click", () => {
+      if (imageBox.dataset.missing === "true") return;
+      gpPreviewImage.src = item.image;
+      gpPreviewImage.alt = item.title;
+      gpPreviewCaption.textContent = item.title;
+      gpLightbox.classList.add("open");
+    });
+
+    const info = document.createElement("div");
+    info.className = "gp-info";
+    const label = document.createElement("div");
+    label.className = "gp-category-label";
+    label.textContent = item.label;
+    const title = document.createElement("h2");
+    title.textContent = item.title;
+    info.append(label, title);
+    card.append(imageBox, info);
+    gpGrid.appendChild(card);
+  });
+}
+
+gpButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    gpButtons.forEach(btn => btn.classList.remove("active"));
+    button.classList.add("active");
+    showGraphicSamples(button.dataset.category);
+  });
+});
+
+function closePreview() {
+  gpLightbox.classList.remove("open");
+  gpPreviewImage.src = "";
+}
+document.getElementById("gpClose").addEventListener("click", closePreview);
+gpLightbox.addEventListener("click", event => {
+  if (event.target === gpLightbox) closePreview();
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closePreview();
+});
+
+showGraphicSamples();
+</script>
+</body>
+</html>
